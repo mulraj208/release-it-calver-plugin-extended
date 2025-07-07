@@ -43,3 +43,4 @@ class CalverPlugin extends Plugin {
 }
 
 module.exports = CalverPlugin
+module.exports.default = CalverPlugin
