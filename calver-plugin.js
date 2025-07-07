@@ -1,7 +1,7 @@
 'use strict'
 
-const calver = require('calver')
-const { Plugin } = require('release-it')
+import { Plugin } from 'release-it'
+import * as calver from 'calver'
 
 const DEFAULT_FORMAT = 'yy.mm.minor'
 const DEFAULT_INCREMENT = 'calendar'
@@ -42,4 +42,4 @@ class CalverPlugin extends Plugin {
     }
 }
 
-module.exports = CalverPlugin
+export default CalverPlugin

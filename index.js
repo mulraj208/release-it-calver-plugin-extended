@@ -1,6 +1,5 @@
 'use strict';
 
-import CalverPluginModule from './calver-plugin.js';
-const CalverPlugin = CalverPluginModule.default || CalverPluginModule;
+import CalverPlugin from './calver-plugin.js';
 
 export default CalverPlugin;
