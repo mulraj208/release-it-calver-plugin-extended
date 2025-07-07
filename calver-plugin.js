@@ -1,7 +1,7 @@
 'use strict';
 
 import { Plugin } from 'release-it';
-import calver from 'calver/node/lts';
+import calver from 'calver';
 const DEFAULT_FORMAT = 'yy.mm.minor',
     DEFAULT_INCREMENT = 'calendar',
     FALLBACK_INCREMENT = 'minor';
