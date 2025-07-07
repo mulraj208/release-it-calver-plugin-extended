@@ -1,6 +1,6 @@
 {
   "name": "@mulrajgupta208/release-it-calver-plugin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Calender Versioning (calver) plugin for Release It!",
   "main": "index.js",
   "scripts": {
