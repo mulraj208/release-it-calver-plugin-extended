@@ -80,5 +80,56 @@ describe('plugin', function () {
     plugin.setContext({'increment': 'minor', 'format': 'yyyy.mm.minor.patch'});
     const incrementedVersion = plugin.getIncrementedVersionCI({latestVersion: version});
     expect(incrementedVersion).to.equal('2021.1.2.0');
-  });    
+  });
+
+  it('should normalize version by stripping leading zeros', () => {
+    const plugin = new CalverPlugin();
+    const normalized = plugin.normalizeVersion('2025.07.05.01.001');
+    expect(normalized).to.equal('2025.7.5.1.1');
+  });
+
+  it('should fallback to fallbackIncrement if increment fails', () => {
+    const plugin = new CalverPlugin();
+    plugin.setContext({
+      increment: 'nonexistent',
+      fallbackIncrement: 'minor',
+      format: 'yyyy.mm.minor'
+    });
+    const version = '2025.7.5';
+    const incrementedVersion = plugin.getIncrementedVersion({ latestVersion: version });
+    expect(incrementedVersion).to.equal('2025.7.6');
+  });
+
+  it('should return latestVersion if both increment and fallbackIncrement fail', () => {
+    const plugin = new CalverPlugin();
+    plugin.setContext({
+      increment: 'invalid',
+      fallbackIncrement: 'also-invalid',
+      format: 'yyyy.mm.minor'
+    });
+    const version = 'invalid.version';
+    const result = plugin.getIncrementedVersion({ latestVersion: version });
+    expect(result).to.equal(version);
+  });
+
+  it('should return undefined if latestVersion is undefined', () => {
+    const plugin = new CalverPlugin();
+    const result = plugin.getIncrementedVersion({});
+    expect(result).to.equal(undefined);
+  });
+
+  it('should return the correct fallback when no context is provided', () => {
+    const plugin = new CalverPlugin();
+    expect(plugin.getFallbackInc()).to.equal('minor');
+  });
+
+  it('should return the correct format when no context is provided', () => {
+    const plugin = new CalverPlugin();
+    expect(plugin.getFormat()).to.equal('yy.mm.minor');
+  });
+
+  it('should return the correct increment when no context is provided', () => {
+    const plugin = new CalverPlugin();
+    expect(plugin.getInc()).to.equal('calendar');
+  });
 });
